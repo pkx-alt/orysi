@@ -26,7 +26,7 @@ let pageState = {
     selectedCategories: [],
     selectedSubcategories: [],
     priceRange: [0.00, 150.00],
-    orderBy: 'Descripción', // Nombre real de la columna para ordenar
+    orderBy: 'descripcion', // Nombre real de la columna para ordenar
     ascending: true,
     currentPage: 1,
     baseCategory: null, 
@@ -37,13 +37,15 @@ let pageState = {
 // --- FUNCIÓN CENTRAL DE CONSULTA (REAL CON ALIASES) ---
 async function fetchProducts(filters, limit = 12) {
     try {
+        // CORRECCIÓN EN app.js
+        // En app.js, busca esto y déjalo así:
         const selectFields = `
-            id, 
-            nombre:Descripción, 
-            precio:Precio, 
-            stock:Stock, 
-            categoria_slug:Categorias, 
-            url_imagen: "Url de la imagen"
+            id:sku, 
+            nombre:descripcion,
+            precio:precio, 
+            stock:stock, 
+            categoria:categoria,
+            url_imagen:imagen_url
         `;
 
         let query = supabase
